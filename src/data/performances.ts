@@ -1,6 +1,6 @@
 export interface Performance {
   id: string
-  employeeId: string
+  employeeId?: string
   employeeName: string
   department: string
   position: string
@@ -66,6 +66,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF002',
+    employeeId: 'E002',
     employeeName: '钱十一',
     department: '供指中心',
     position: '网格员',
@@ -97,6 +98,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF003',
+    employeeId: 'E003',
     employeeName: '孙七',
     department: '营销部',
     position: '客户经理',
@@ -115,6 +117,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF004',
+    employeeId: 'E004',
     employeeName: '张三',
     department: '安监部',
     position: '安全员',
@@ -133,6 +136,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF005',
+    employeeId: 'E005',
     employeeName: '王五',
     department: '配电部',
     position: '配电工',
@@ -151,6 +155,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF006',
+    employeeId: 'E006',
     employeeName: '李四',
     department: '安监部',
     position: '安全主管',
@@ -169,6 +174,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF007',
+    employeeId: 'E007',
     employeeName: '赵六',
     department: '配电部',
     position: '配电主管',
@@ -187,6 +193,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF008',
+    employeeId: 'E008',
     employeeName: '周八',
     department: '营销部',
     position: '营销主管',
@@ -205,6 +212,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF009',
+    employeeId: 'E009',
     employeeName: '郑十',
     department: '运检部',
     position: '运检主管',
@@ -223,6 +231,7 @@ export const performances: Performance[] = [
   },
   {
     id: 'PF010',
+    employeeId: 'E010',
     employeeName: '孙十二',
     department: '供指中心',
     position: '供指主管',

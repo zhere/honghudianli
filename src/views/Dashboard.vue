@@ -51,19 +51,22 @@
           <el-table :data="warningIndicators" stripe>
             <el-table-column prop="name" label="指标名称" width="200" />
             <el-table-column prop="department" label="部门" width="120" />
-            <el-table-column prop="value" label="当前值" width="100" />
-            <el-table-column prop="target" label="目标值" width="100" />
-            <el-table-column label="预警级别" width="100">
+            <el-table-column prop="value" label="当前值" width="100">
               <template #default="{ row }">
-                <el-tag :type="row.warningLevel === 'red' ? 'danger' : row.warningLevel === 'orange' ? 'warning' : 'warning'" size="small">
-                  {{ row.warningLevel === 'red' ? '红色' : row.warningLevel === 'orange' ? '橙色' : '黄色' }}
-                </el-tag>
+                <span :style="{ color: row.status === 'danger' ? '#f56c6c' : row.status === 'warning' ? '#e6a23c' : '#67c23a' }">
+                  {{ row.value }}{{ row.unit }}
+                </span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="target" label="目标值" width="100">
+              <template #default="{ row }">
+                {{ row.target }}{{ row.unit }}
               </template>
             </el-table-column>
             <el-table-column prop="yearOnYear" label="同比" width="100">
               <template #default="{ row }">
                 <span :style="{ color: row.yearOnYear > 0 ? '#f56c6c' : '#67c23a' }">
-                  {{ row.yearOnYear > 0 ? '+' : '' }}{{ row.yearOnYear }}%
+                  {{ row.yearOnYear > 0 ? '+' : '' }}{{ Math.abs(row.yearOnYear) }}%
                 </span>
               </template>
             </el-table-column>
@@ -74,9 +77,7 @@
       <el-col :span="8">
         <el-card>
           <template #header>
-            <div class="card-header">
-              <span>工单状态</span>
-            </div>
+            <span>工单状态</span>
           </template>
           <v-chart :option="statusOption" style="height: 300px" />
         </el-card>
@@ -98,8 +99,8 @@
             <el-table-column prop="type" label="类型" width="100" />
             <el-table-column label="优先级" width="100">
               <template #default="{ row }">
-                <el-tag :type="row.priority === 'red' ? 'danger' : row.priority === 'orange' ? 'warning' : 'warning'" size="small">
-                  {{ row.priority === 'red' ? '严重' : row.priority === 'orange' ? '特别严重' : '一般' }}
+                <el-tag :type="getPriorityType(row.priority)" size="small">
+                  {{ getPriorityText(row.priority) }}
                 </el-tag>
               </template>
             </el-table-column>
@@ -124,7 +125,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart, PieChart, BarChart } from 'echarts/charts'
@@ -135,7 +136,7 @@ import {
   GridComponent
 } from 'echarts/components'
 import VChart from 'vue-echarts'
-import { Document, Warning, CircleCheck, Timer, TrendCharts } from '@element-plus/icons-vue'
+import { Document, Warning, CircleCheck, Timer } from '@element-plus/icons-vue'
 import { indicators } from '@/data/indicators'
 import { workOrders } from '@/data/workOrders'
 import { statistics } from '@/data/statistics'

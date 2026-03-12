@@ -230,7 +230,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { ElMessage } from 'element-plus'
 import { performances, departmentPerformances } from '@/data/performances'
 
 const activeTab = ref('personal')

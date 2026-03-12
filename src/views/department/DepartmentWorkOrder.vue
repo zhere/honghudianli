@@ -262,15 +262,15 @@ const getStatusType = (status: string) => {
   return typeMap[status] || 'info'
 }
 
-const handleView = (row: any) => {
-  console.log('查看工单', row)
+const handleView = (_row: any) => {
+  console.log('查看工单')
 }
 
-const handleTrack = (row: any) => {
+const handleTrack = (_row: any) => {
   trackDialogVisible.value = true
 }
 
-const handleReceive = (row: any) => {
+const handleReceive = (_row: any) => {
   ElMessage.success('工单接收成功')
 }
 </script>
