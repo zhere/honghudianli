@@ -126,15 +126,15 @@
                   </template>
                 </el-table-column>
                 <el-table-column label="预警级别" width="100">
-                  <template #default="{ row }">
+                  <template #default>
                     <el-tag type="danger" size="small">红色</el-tag>
                   </template>
                 </el-table-column>
                 <el-table-column prop="lastUpdateTime" label="更新时间" width="180" />
                 <el-table-column label="操作" width="150">
                   <template #default="{ row }">
-                    <el-button type="primary" link size="small" @click="handleDetail(_row)">详情</el-button>
-                    <el-button type="danger" link size="small" @click="handleCreateWorkOrder(_row)">立即创建工单</el-button>
+                    <el-button type="primary" link size="small" @click="handleDetail(row)">详情</el-button>
+                    <el-button type="danger" link size="small" @click="handleCreateWorkOrder(row)">立即创建工单</el-button>
                   </template>
                 </el-table-column>
               </el-table>

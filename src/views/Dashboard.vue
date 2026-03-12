@@ -280,6 +280,24 @@ const getStatusType = (status: string) => {
   return typeMap[status] || 'info'
 }
 
+const getPriorityType = (priority: string) => {
+  const typeMap: Record<string, any> = {
+    'yellow': 'warning',
+    'red': 'danger',
+    'orange': 'danger'
+  }
+  return typeMap[priority] || 'info'
+}
+
+const getPriorityText = (priority: string) => {
+  const textMap: Record<string, string> = {
+    'yellow': '一般',
+    'red': '严重',
+    'orange': '特别严重'
+  }
+  return textMap[priority] || '未知'
+}
+
 const handleView = (row: any) => {
   console.log('查看工单', row.id)
 }
