@@ -422,12 +422,7 @@ const handleView = (row: any) => {
 }
 
 const handleProcess = (row: any) => {
-  router.push({
-    path: '/workorder/list',
-    query: {
-      id: row.id
-    }
-  })
+  console.log('处理工单', row.id)
 }
 
 const handleDepartmentIndicator = (department: string, status: string) => {

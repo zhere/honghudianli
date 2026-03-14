@@ -189,6 +189,9 @@ onMounted(() => {
       searchForm.value.status = '执行中'
     }
   }
+  if (route.query.id) {
+    searchForm.value.id = route.query.id as string
+  }
 })
 
 const currentPage = ref(1)
@@ -284,7 +287,8 @@ const handleReset = () => {
     title: '',
     type: '',
     priority: '',
-    status: ''
+    status: '',
+    department: ''
   }
 }
 
