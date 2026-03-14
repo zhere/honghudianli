@@ -107,19 +107,19 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="指标名称">
-              <el-input v-model="formData.name" />
+              <el-input v-model="formData.name" :disabled="dialogTitle === '查看指标'" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="指标编码">
-              <el-input v-model="formData.code" />
+              <el-input v-model="formData.code" :disabled="dialogTitle === '查看指标'" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="指标级别">
-              <el-select v-model="formData.level">
+              <el-select v-model="formData.level" :disabled="dialogTitle === '查看指标'">
                 <el-option label="一级" value="一级" />
                 <el-option label="二级" value="二级" />
                 <el-option label="三级" value="三级" />
@@ -128,7 +128,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="所属部门">
-              <el-select v-model="formData.department">
+              <el-select v-model="formData.department" :disabled="dialogTitle === '查看指标'">
                 <el-option label="安监部" value="安监部" />
                 <el-option label="营销部" value="营销部" />
                 <el-option label="配电部" value="配电部" />
@@ -141,12 +141,12 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="业务分类">
-              <el-input v-model="formData.category" />
+              <el-input v-model="formData.category" :disabled="dialogTitle === '查看指标'" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="数据来源">
-              <el-input v-model="formData.dataSource" />
+              <el-input v-model="formData.dataSource" :disabled="dialogTitle === '查看指标'" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -273,7 +273,9 @@ const handleAdd = () => {
 }
 
 const handleView = (row: any) => {
-  console.log('查看指标', row)
+  dialogTitle.value = '查看指标'
+  formData.value = { ...row }
+  dialogVisible.value = true
 }
 
 const handleEdit = (row: any) => {
