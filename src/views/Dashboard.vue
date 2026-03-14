@@ -413,11 +413,21 @@ const getPriorityText = (priority: string) => {
 }
 
 const handleView = (row: any) => {
-  console.log('查看工单', row.id)
+  router.push({
+    path: '/workorder/list',
+    query: {
+      id: row.id
+    }
+  })
 }
 
 const handleProcess = (row: any) => {
-  console.log('处理工单', row.id)
+  router.push({
+    path: '/workorder/list',
+    query: {
+      id: row.id
+    }
+  })
 }
 
 const handleDepartmentIndicator = (department: string, status: string) => {
