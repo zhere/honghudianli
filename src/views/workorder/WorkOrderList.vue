@@ -15,6 +15,16 @@
         <el-form-item label="工单标题">
           <el-input v-model="searchForm.title" placeholder="请输入工单标题" clearable />
         </el-form-item>
+        <el-form-item label="所属部门">
+          <el-select v-model="searchForm.department" placeholder="请选择部门" clearable>
+            <el-option label="全部" value="" />
+            <el-option label="安监部" value="安监部" />
+            <el-option label="营销部" value="营销部" />
+            <el-option label="配电部" value="配电部" />
+            <el-option label="供指中心" value="供指中心" />
+            <el-option label="运检部" value="运检部" />
+          </el-select>
+        </el-form-item>
         <el-form-item label="工单类型">
           <el-select v-model="searchForm.type" placeholder="请选择类型" clearable>
             <el-option label="全部" value="" />
@@ -152,15 +162,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { workOrders } from '@/data/workOrders'
+
+const route = useRoute()
 
 const searchForm = ref({
   id: '',
   title: '',
   type: '',
   priority: '',
-  status: ''
+  status: '',
+  department: ''
+})
+
+onMounted(() => {
+  if (route.query.department) {
+    searchForm.value.department = route.query.department as string
+  }
+  if (route.query.status) {
+    const status = route.query.status as string
+    if (status === 'completed') {
+      searchForm.value.status = '已闭环'
+    } else if (status === 'overdue') {
+      searchForm.value.status = '执行中'
+    }
+  }
 })
 
 const currentPage = ref(1)
@@ -191,6 +219,10 @@ const filteredWorkOrders = computed(() => {
 
   if (searchForm.value.status) {
     result = result.filter(item => item.status === searchForm.value.status)
+  }
+
+  if (searchForm.value.department) {
+    result = result.filter(item => item.department === searchForm.value.department)
   }
 
   return result

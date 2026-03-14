@@ -21,6 +21,100 @@
         <el-card>
           <template #header>
             <div class="card-header">
+              <span>部门指标预警情况</span>
+              <el-button type="primary" size="small" @click="$router.push('/indicator/warning')">查看全部</el-button>
+            </div>
+          </template>
+          <el-table :data="departmentIndicatorStats" stripe>
+            <el-table-column prop="department" label="部门" width="120" />
+            <el-table-column label="预警指标" width="100">
+              <template #default="{ row }">
+                <el-link type="danger" @click="handleDepartmentIndicator(row.department, 'warning')">
+                  <el-badge :value="row.warningCount" type="danger" />
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="正常指标" width="100">
+              <template #default="{ row }">
+                <el-link type="success" @click="handleDepartmentIndicator(row.department, 'normal')">
+                  <el-badge :value="row.normalCount" type="success" />
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="预警率" width="120">
+              <template #default="{ row }">
+                <el-progress 
+                  :percentage="row.warningRate" 
+                  :color="row.warningRate > 30 ? '#f56c6c' : row.warningRate > 15 ? '#e6a23c' : '#67c23a'"
+                />
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="150">
+              <template #default="{ row }">
+                <el-button type="primary" link size="small" @click="handleDepartmentIndicator(row.department, 'all')">
+                  查看详情
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card>
+          <template #header>
+            <div class="card-header">
+              <span>部门工单情况</span>
+              <el-button type="primary" size="small" @click="$router.push('/workorder/list')">查看全部</el-button>
+            </div>
+          </template>
+          <el-table :data="statistics.workOrderStats.byDepartment" stripe>
+            <el-table-column prop="department" label="部门" width="120" />
+            <el-table-column label="总工单" width="80">
+              <template #default="{ row }">
+                <el-link type="primary" @click="handleDepartmentWorkOrder(row.department, 'all')">
+                  {{ row.total }}
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="已完成" width="80">
+              <template #default="{ row }">
+                <el-link type="success" @click="handleDepartmentWorkOrder(row.department, 'completed')">
+                  {{ row.completed }}
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="超期" width="80">
+              <template #default="{ row }">
+                <el-link type="danger" @click="handleDepartmentWorkOrder(row.department, 'overdue')">
+                  {{ row.overdue }}
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="完成率" width="120">
+              <template #default="{ row }">
+                <el-progress 
+                  :percentage="row.completionRate" 
+                  :color="row.completionRate >= 90 ? '#67c23a' : row.completionRate >= 70 ? '#e6a23c' : '#f56c6c'"
+                />
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="150">
+              <template #default="{ row }">
+                <el-button type="primary" link size="small" @click="handleDepartmentWorkOrder(row.department, 'all')">
+                  查看详情
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="20" class="mt-20">
+      <el-col :span="12">
+        <el-card>
+          <template #header>
+            <div class="card-header">
               <span>工单趋势</span>
             </div>
           </template>
@@ -126,6 +220,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart, PieChart, BarChart } from 'echarts/charts'
@@ -140,6 +235,8 @@ import { Document, Warning, CircleCheck, Timer } from '@element-plus/icons-vue'
 import { indicators } from '@/data/indicators'
 import { workOrders } from '@/data/workOrders'
 import { statistics } from '@/data/statistics'
+
+const router = useRouter()
 
 use([
   CanvasRenderer,
@@ -162,6 +259,23 @@ const stats = [
 const warningIndicators = computed(() => indicators.filter(item => item.warningLevel))
 
 const pendingWorkOrders = computed(() => workOrders.filter(item => item.status === '待接收' || item.status === '执行中'))
+
+const departmentIndicatorStats = computed(() => {
+  const departments = ['安监部', '营销部', '配电部', '供指中心', '运检部']
+  return departments.map(dept => {
+    const deptIndicators = indicators.filter(item => item.department === dept)
+    const warningCount = deptIndicators.filter(item => item.warningLevel).length
+    const normalCount = deptIndicators.filter(item => !item.warningLevel).length
+    const warningRate = deptIndicators.length > 0 ? Math.round((warningCount / deptIndicators.length) * 100) : 0
+    return {
+      department: dept,
+      warningCount,
+      normalCount,
+      warningRate,
+      total: deptIndicators.length
+    }
+  })
+})
 
 const workOrderTrendOption = {
   tooltip: {
@@ -304,6 +418,26 @@ const handleView = (row: any) => {
 
 const handleProcess = (row: any) => {
   console.log('处理工单', row.id)
+}
+
+const handleDepartmentIndicator = (department: string, status: string) => {
+  router.push({
+    path: '/indicator/list',
+    query: {
+      department,
+      status
+    }
+  })
+}
+
+const handleDepartmentWorkOrder = (department: string, status: string) => {
+  router.push({
+    path: '/workorder/list',
+    query: {
+      department,
+      status
+    }
+  })
 }
 </script>
 

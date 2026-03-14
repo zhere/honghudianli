@@ -175,9 +175,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { indicators } from '@/data/indicators'
+
+const route = useRoute()
 
 const searchForm = ref({
   name: '',
@@ -203,6 +206,20 @@ const formData = ref({
   formula: ''
 })
 
+onMounted(() => {
+  if (route.query.department) {
+    searchForm.value.department = route.query.department as string
+  }
+  if (route.query.status) {
+    const status = route.query.status as string
+    if (status === 'warning') {
+      searchForm.value.status = 'warning'
+    } else if (status === 'normal') {
+      searchForm.value.status = 'normal'
+    }
+  }
+})
+
 const filteredIndicators = computed(() => {
   let result = indicators
 
@@ -215,7 +232,13 @@ const filteredIndicators = computed(() => {
   }
 
   if (searchForm.value.status) {
-    result = result.filter(item => item.status === searchForm.value.status)
+    if (searchForm.value.status === 'warning') {
+      result = result.filter(item => item.warningLevel)
+    } else if (searchForm.value.status === 'normal') {
+      result = result.filter(item => !item.warningLevel)
+    } else {
+      result = result.filter(item => item.status === searchForm.value.status)
+    }
   }
 
   return result
