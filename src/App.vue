@@ -4,7 +4,7 @@
       <el-aside width="240px">
         <div class="logo">
           <h2>洪湖电力</h2>
-          <p>数智集约作业管控平台</p>
+          <p>工单督办管理平台</p>
         </div>
         <el-menu
           :default-active="activeMenu"
@@ -29,13 +29,13 @@
           <el-sub-menu index="workorder">
             <template #title>
               <el-icon><Document /></el-icon>
-              <span>工单管理</span>
+              <span>督办管理</span>
             </template>
-            <el-menu-item index="/workorder/list">工单列表</el-menu-item>
-            <el-menu-item index="/workorder/create">创建工单</el-menu-item>
-            <el-menu-item index="/workorder/assign">工单分配</el-menu-item>
-            <el-menu-item index="/workorder/execute">工单执行</el-menu-item>
-            <el-menu-item index="/workorder/check">工单核查</el-menu-item>
+            <el-menu-item index="/workorder/sync">数据接入</el-menu-item>
+            <el-menu-item index="/workorder/list">督办工单</el-menu-item>
+            <el-menu-item index="/workorder/assign">任务分配</el-menu-item>
+            <el-menu-item index="/workorder/track">进度跟踪</el-menu-item>
+            <el-menu-item index="/workorder/check">督办核查</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="analysis">
             <template #title>
@@ -60,7 +60,7 @@
               <span>部门看板</span>
             </template>
             <el-menu-item index="/department/overview">部门概览</el-menu-item>
-            <el-menu-item index="/department/workorder">工单跟踪</el-menu-item>
+            <el-menu-item index="/department/workorder">督办跟踪</el-menu-item>
             <el-menu-item index="/department/performance">绩效展示</el-menu-item>
           </el-sub-menu>
         </el-menu>
@@ -104,18 +104,18 @@ const currentBreadcrumb = computed(() => {
     '/indicator/list': '指标列表',
     '/indicator/monitor': '实时监测',
     '/indicator/warning': '预警管理',
-    '/workorder/list': '工单列表',
-    '/workorder/create': '创建工单',
-    '/workorder/assign': '工单分配',
-    '/workorder/execute': '工单执行',
-    '/workorder/check': '工单核查',
+    '/workorder/sync': '数据接入',
+    '/workorder/list': '督办工单',
+    '/workorder/assign': '任务分配',
+    '/workorder/track': '进度跟踪',
+    '/workorder/check': '督办核查',
     '/analysis/statistics': '统计分析',
     '/analysis/report': '报表生成',
     '/performance/points': '积分管理',
     '/performance/evaluation': '绩效评估',
     '/performance/ranking': '绩效排名',
     '/department/overview': '部门概览',
-    '/department/workorder': '工单跟踪',
+    '/department/workorder': '督办跟踪',
     '/department/performance': '绩效展示'
   }
   return pathMap[route.path] || ''

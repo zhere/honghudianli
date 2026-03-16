@@ -214,8 +214,8 @@ export const performances: Performance[] = [
     id: 'PF009',
     employeeId: 'E009',
     employeeName: '郑十',
-    department: '工区',
-    position: '监控员',
+    department: '运检部',
+    position: '运检主管',
     totalPoints: 138,
     rank: 9,
     monthlyPoints: 25,
@@ -247,44 +247,6 @@ export const performances: Performance[] = [
     qualityRate: 88,
     satisfactionRate: 89,
     details: []
-  },
-  {
-    id: 'PF011',
-    employeeId: 'E011',
-    employeeName: '刘十三',
-    department: '发建部',
-    position: '项目管理员',
-    totalPoints: 132,
-    rank: 11,
-    monthlyPoints: 23,
-    yearlyPoints: 132,
-    performanceLevel: '合格',
-    performanceCoefficient: 1.0,
-    workOrderCount: 8,
-    completionRate: 82,
-    timelinessRate: 70,
-    qualityRate: 87,
-    satisfactionRate: 88,
-    details: []
-  },
-  {
-    id: 'PF012',
-    employeeId: 'E012',
-    employeeName: '陈十四',
-    department: '工区',
-    position: '运维员',
-    totalPoints: 128,
-    rank: 12,
-    monthlyPoints: 22,
-    yearlyPoints: 128,
-    performanceLevel: '合格',
-    performanceCoefficient: 1.0,
-    workOrderCount: 9,
-    completionRate: 80,
-    timelinessRate: 68,
-    qualityRate: 86,
-    satisfactionRate: 87,
-    details: []
   }
 ]
 
@@ -310,6 +272,16 @@ export const departmentPerformances = [
     qualityRate: 92.5
   },
   {
+    department: '配电部',
+    totalPoints: 297,
+    averagePoints: 148.5,
+    rank: 5,
+    workOrderCount: 25,
+    completionRate: 90,
+    timelinessRate: 82.5,
+    qualityRate: 92
+  },
+  {
     department: '供指中心',
     totalPoints: 307,
     averagePoints: 153.5,
@@ -320,33 +292,13 @@ export const departmentPerformances = [
     qualityRate: 92
   },
   {
-    department: '工区',
-    totalPoints: 266,
-    averagePoints: 133,
-    rank: 5,
-    workOrderCount: 19,
-    completionRate: 82.5,
-    timelinessRate: 71.5,
-    qualityRate: 87.5
-  },
-  {
-    department: '配电部',
-    totalPoints: 297,
-    averagePoints: 148.5,
-    rank: 4,
-    workOrderCount: 25,
-    completionRate: 90,
-    timelinessRate: 82.5,
-    qualityRate: 92
-  },
-  {
-    department: '发建部',
-    totalPoints: 132,
-    averagePoints: 132,
-    rank: 6,
-    workOrderCount: 8,
-    completionRate: 82,
-    timelinessRate: 70,
-    qualityRate: 87
+    department: '运检部',
+    totalPoints: 323,
+    averagePoints: 161.5,
+    rank: 1,
+    workOrderCount: 22,
+    completionRate: 92.5,
+    timelinessRate: 85,
+    qualityRate: 93.5
   }
 ]

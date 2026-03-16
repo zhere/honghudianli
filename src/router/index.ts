@@ -28,14 +28,14 @@ const router = createRouter({
       component: () => import('../views/indicator/IndicatorWarning.vue')
     },
     {
+      path: '/workorder/sync',
+      name: 'workorder-sync',
+      component: () => import('../views/workorder/WorkOrderSync.vue')
+    },
+    {
       path: '/workorder/list',
       name: 'workorder-list',
       component: () => import('../views/workorder/WorkOrderList.vue')
-    },
-    {
-      path: '/workorder/create',
-      name: 'workorder-create',
-      component: () => import('../views/workorder/WorkOrderCreate.vue')
     },
     {
       path: '/workorder/assign',
@@ -43,9 +43,9 @@ const router = createRouter({
       component: () => import('../views/workorder/WorkOrderAssign.vue')
     },
     {
-      path: '/workorder/execute',
-      name: 'workorder-execute',
-      component: () => import('../views/workorder/WorkOrderExecute.vue')
+      path: '/workorder/track',
+      name: 'workorder-track',
+      component: () => import('../views/workorder/WorkOrderTrack.vue')
     },
     {
       path: '/workorder/check',

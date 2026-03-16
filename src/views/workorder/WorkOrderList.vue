@@ -3,8 +3,8 @@
     <el-card>
       <template #header>
         <div class="card-header">
-          <span>工单列表</span>
-          <el-button type="primary" size="small" @click="$router.push('/workorder/create')">创建工单</el-button>
+          <span>督办工单</span>
+          <el-button type="primary" size="small" @click="$router.push('/workorder/sync')">手动同步</el-button>
         </div>
       </template>
 
